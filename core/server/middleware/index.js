@@ -10,6 +10,7 @@ var middleware = require('./middleware'),
     slashes     = require('connect-slashes'),
     errors      = require('../errorHandling'),
     api         = require('../api'),
+    fs          = require('fs'),
     path        = require('path'),
     hbs         = require('express-hbs'),
     config      = require('../config'),
@@ -91,6 +92,7 @@ function initViews(req, res, next) {
 // Helper for manageAdminAndTheme
 function activateTheme(activeTheme) {
     var hbsOptions,
+        themePartials = path.join(config.paths().themePath, activeTheme, 'partials'),
         stackLocation = _.indexOf(expressServer.stack, _.find(expressServer.stack, function (stackItem) {
             return stackItem.route === config.paths().subdir && stackItem.handle.name === 'settingEnabled';
         }));
@@ -106,10 +108,14 @@ function activateTheme(activeTheme) {
 
     // set view engine
     hbsOptions = { partialsDir: [ config.paths().helperTemplates ] };
-    if (config.paths().availableThemes[activeTheme].hasOwnProperty('partials')) {
+
+    fs.stat(themePartials, function (err, stats) {
         // Check that the theme has a partials directory before trying to use it
-        hbsOptions.partialsDir.push(path.join(config.paths().themePath, activeTheme, 'partials'));
-    }
+        if (!err && stats && stats.isDirectory()) {
+            hbsOptions.partialsDir.push(themePartials);
+        }
+    });
+
     expressServer.set('theme view engine', hbs.express3(hbsOptions));
 
     // Update user error template
@@ -136,13 +142,18 @@ function manageAdminAndTheme(req, res, next) {
             if (!config.paths().availableThemes.hasOwnProperty(activeTheme.value)) {
                 if (!res.isAdmin) {
                     // Throw an error if the theme is not available, but not on the admin UI
-                    errors.logAndThrowError('The currently active theme ' + activeTheme.value + ' is missing.');
+                    return errors.throwError('The currently active theme ' + activeTheme.value + ' is missing.');
                 }
             } else {
                 activateTheme(activeTheme.value);
             }
         }
         next();
+    }).otherwise(function (err) {
+        // Trying to start up without the active theme present, setup a simple hbs instance
+        // and render an error page straight away.
+        expressServer.engine('hbs', hbs.express3());
+        next(err);
     });
 }
 
@@ -172,11 +183,7 @@ function isSSLrequired(isAdmin) {
 // and redirect if needed
 function checkSSL(req, res, next) {
     if (isSSLrequired(res.isAdmin)) {
-        // Check if X-Forarded-Proto headers are sent, if they are check for https.
-        // If they are not assume true to avoid infinite redirect loop.
-        // If the X-Forwarded-Proto header is missing and Express cannot automatically sense HTTPS the redirect will not be made.
-        var httpsHeader = req.header('X-Forwarded-Proto') !== undefined ? req.header('X-Forwarded-Proto').toLowerCase() === 'https' ? true : false : true;
-        if (!req.secure && !httpsHeader) {
+        if (!req.secure) {
             return res.redirect(301, url.format({
                 protocol: 'https:',
                 hostname: url.parse(config().url).hostname,
@@ -197,6 +204,10 @@ module.exports = function (server, dbHash) {
     expressServer = server;
     middleware.cacheServer(expressServer);
 
+    // Make sure 'req.secure' is valid for proxied requests
+    // (X-Forwarded-Proto header will be checked, if present)
+    expressServer.enable('trust proxy');
+
     // Logging configuration
     if (expressServer.get('env') !== 'development') {
         expressServer.use(express.logger());
@@ -216,12 +227,15 @@ module.exports = function (server, dbHash) {
     // First determine whether we're serving admin or theme content
     expressServer.use(manageAdminAndTheme);
 
-    // Force SSL
-    expressServer.use(checkSSL);
-
 
     // Admin only config
     expressServer.use(subdir + '/ghost', middleware.whenEnabled('admin', express['static'](path.join(corePath, '/client/assets'), {maxAge: ONE_YEAR_MS})));
+
+    // Force SSL
+    // NOTE: Importantly this is _after_ the check above for admin-theme static resources,
+    //       which do not need HTTPS. In fact, if HTTPS is forced on them, then 404 page might
+    //       not display properly when HTTPS is not available!
+    expressServer.use(checkSSL);
 
     // Theme only config
     expressServer.use(subdir, middleware.whenEnabled(expressServer.get('activeTheme'), middleware.staticTheme()));
