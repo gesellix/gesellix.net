@@ -1,0 +1,87 @@
+{{!< default}}
+    <div id="sidebar-temp">
+        <div id="sidebar" class="inactive">
+           {{#foreach posts}}
+            <a href="{{url}}" class="article-wid">
+                <span class="meta">{{date format="DD MMM YYYY"}}</span>
+                <strong>{{{title}}}</strong>
+                <span class="c-text">{{excerpt words="20"}}&hellip;</span>
+            </a>
+            {{/foreach}}
+
+            {{pagination}}
+        </div>
+    </div>
+    <div class="tempdiv"></div>
+
+    {{#foreach posts}}
+        {{#if @first}}
+        <main class="content" role="main">
+            <article class="post">
+                <div class="inside">
+                    <header class="post-header">
+                        <h1 class="post-title">{{{title}}}</h1>
+                        <span class="post-meta"><time datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMM YYYY"}}</time> - <span class="author">{{author.name}}</span></span>
+                    </header>
+                    <section class="post-excerpt">
+                        {{content}}
+                        <hr />
+                        <p class="post-tags">{{#if tags}}on {{tags}}{{/if}}</p>
+                        <p class="post-share">
+                            <b>Share this post:</b>
+                            <a class="icon-twitter" href="http://twitter.com/share?text={{title}}&url={{url absolute="true"}}" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                                <span class="hidden">Twitter</span>
+                            </a>
+                            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                                <span class="hidden">Facebook</span>
+                            </a>
+                            <a class="icon-google-plus" href="https://plus.google.com/share?url={{url absolute="true"}}" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                                <span class="hidden">Google+</span>
+                            </a>
+                        </p>
+                    </section>
+                </div>
+
+                {{#if author}}
+                <footer class="post-footer"
+                {{#if author.cover}}
+                style="background-image: url({{author.cover}});"
+                {{/if}}
+                >
+                    <section class="author">
+                        {{#if author.image}}
+                        <span class="author-img"><img src="{{author.image}}" alt="" /></span>
+                        {{/if}}
+                        <h4>by {{author.name}}</h4>
+                        <p>{{author.bio}}</p>
+                    </section>
+                </footer>
+                {{/if}}
+            </article>
+        </main>
+
+    <div class="post-comments">
+        <div class="post">
+            <div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+
+                    var disqus_shortname = '';
+                    if(disqus_shortname == '') {
+                        document.getElementById('disqus_thread').innerHTML = 'Please set up Disqus shortname! (See documentation)';
+                    }
+                    else {
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                    }
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </div>
+        </div>
+    </div>
+
+        {{/if}}
+    {{/foreach}}
