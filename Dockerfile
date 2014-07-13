@@ -11,6 +11,9 @@ ADD ./ghost /opt/ghost
 
 WORKDIR /opt/ghost
 
+# using the volumes with a dedicated data container:
+#  docker run -d -v /opt/ghost/content/data -v /opt/ghost/content/images --name ghost-data ubuntu:14.04 true
+#  docker run -d --volumes-from ghost-data -p 2368:2368 gesellix/gesellix.net
 VOLUME ["/opt/ghost/content/data"]
 VOLUME ["/opt/ghost/content/images"]
 

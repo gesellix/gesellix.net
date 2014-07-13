@@ -62,4 +62,4 @@ CHANGELOG.md
 config.js
 
 # Built asset files
-/core/built
+#/core/built
