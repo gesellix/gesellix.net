@@ -1,0 +1,261 @@
+/*
+
+  ORANGE
+  http://www.google.com/design/spec/style/color.html#color-ui-color-palette
+
+  500  #ff9800
+  50   #fff3e0
+  100  #ffe0b2
+  200  #ffcc80
+  300  #ffb74d
+  400  #ffa726
+  500  #ff9800
+  600  #fb8c00
+  700  #f57c00
+  800  #ef6c00
+  900  #fb8c00
+  A100 #ffd180
+  A200 #ffab40
+  A400 #ff9100
+  A700 #ff6d00
+
+*/
+
+fieldset {
+   border: 1px solid #ffe0b2;
+}
+
+.site-head {
+  background-color: #ff9800;
+  color: #fff3e0;
+}
+
+body {
+  background-color: #fff3e0;
+  color: #fb8c00;
+}
+
+::-moz-selection {
+  color: #fb8c00;
+  background: #fff3e0;
+}
+
+::selection {
+  color: #fb8c00;
+  background: #fff3e0;
+}
+
+a {
+  color: #ffa726;
+}
+
+a:hover {
+  color: #ff9800;
+}
+
+h1 a, h2 a, h3 a,
+h4 a, h5 a, h6 a {
+  color: #ffa726;
+}
+
+hr {
+  border-top: 1px solid #ffe0b2;
+}
+
+blockquote {
+  border-left: #ffa726 0.4em solid;
+}
+
+blockquote small {
+  color: #ff9800;
+}
+
+code, tt {
+  border: 1px solid #ffe0b2;
+  background: #fff3e0;
+}
+
+pre {
+    border: 1px solid #ffe0b2;
+    background: #fff3e0;
+}
+
+table th,
+table td {
+  border-top: 1px solid #ffe0b2;
+}
+
+table th { color: #ffa726; }
+
+table tbody + tbody { border-top: 2px solid #ffe0b2; }
+
+table tbody > tr:nth-child(odd) > td,
+table tbody > tr:nth-child(odd) > th {
+    background-color: #fff3e0;
+}
+
+#navigation > a {
+  color: #ffe0b2;
+}
+
+#navigation a:hover {
+  color: #ffe0b2;
+}
+
+.post-meta {
+  color: #ffe0b2;
+}
+
+.post-meta a {
+  color: #ffe0b2;
+}
+
+.post-meta a:hover {
+  color: #fb8c00;
+}
+
+.post-footer {
+  border-top: #ffa726 1px solid;
+  background-color: #ffe0b2;
+}
+
+.author-meta {
+  color: #ffa726;
+}
+
+.author-meta li:before {
+  color: #ffa726;
+}
+
+.author-meta a {
+  color: #ffa726;
+}
+
+.author-meta a:hover {
+  color: #fb8c00;
+}
+
+.post-footer .share a {
+  color: #ffa726;
+}
+
+.post-footer .share a:hover {
+  color: #fb8c00;
+}
+
+.pagination {
+  color: #ffa726;
+}
+
+.pagination a {
+  color: #ff9800;
+}
+
+.older-posts,
+.newer-posts {
+  border: #ff9800 2px solid;
+}
+
+.older-posts:hover,
+.newer-posts:hover {
+  border-color: #ffe0b2;
+}
+
+.site-footer {
+  border-top: #ffa726 1px solid;
+  color: #ffa726;
+  background: #ffe0b2;
+}
+
+.site-footer a,
+.post-footer a {
+  color: #ffa726;
+}
+
+.site-footer a:hover,
+.post-footer a:hover {
+  color: #fb8c00;
+}
+
+.subscribe {
+  border: #ffa726 1px solid;
+}
+
+.subscribe:before {
+  color: #ffa726;
+}
+
+.subscribe:hover:before {
+  color: #fb8c00;
+}
+
+.tooltip {
+  background: #fb8c00;
+}
+
+.tooltip:after {
+  border-color: #fb8c00 transparent;
+}
+
+#results {
+  color: #fb8c00;
+}
+
+#results .result-cell {
+  border: 1px solid #ffa726;
+}
+
+small {
+  color: #ffa726;
+}
+
+.material-button {
+  color: #ffa726;
+}
+
+.material-button:hover,
+.material-button:active {
+  color: #ff9800;
+}
+
+.material-text {
+  border-bottom: 1px solid #ffa726;
+  color: #ff9800;
+}
+
+.material-text:focus,
+.material-text:active,
+.material-text:hover {
+  border-bottom: 2px solid #ff9800;
+}
+
+.tag-template .post.featured,
+.home-template .post.featured,
+.archive-template .post.featured {
+  background-color: #ffa726;
+  color: #fff3e0;
+}
+
+.tag-template .post.featured h2 a,
+.home-template .post.featured h2 a,
+.archive-template .post.featured h2 a {
+  color: #ffcc80;
+}
+
+.tag-template .post.featured h2 a:hover,
+.home-template .post.featured h2 a:hover,
+.archive-template .post.featured h2 a:hover {
+  color: #ffe0b2;
+}
+
+.featured .post-meta {
+  color: #ffe0b2;
+}
+
+.featured .post-meta a {
+  color: #ffe0b2;
+}
+
+.featured .post-meta a:hover {
+  color: #fb8c00;
+}

@@ -1,0 +1,45 @@
+{{!< default}}
+
+{{! The comment above "< default" means - insert everything in this file into
+    the {body} of the default.hbs template, which contains our header/footer. }}
+
+{{! Each post has the blog logo at the top, with a link back to the home page }}
+{{> common-header }}
+
+{{! Used for shrinking and expanding space above content depending on the header height }}
+<div id="header-spacer"></div>
+
+{{! The main content area on the homepage }}
+<main class="content" role="main">
+
+    <header class="tag-archive-header">
+        <h1><i class="fa fa-tag"></i> {{tag.name}}</h1>
+    </header>
+
+    {{! Each post will be output using this markup }}
+    {{#foreach posts}}
+
+    <article class="{{post_class}}">
+        <header class="post-header">
+            <span class="post-meta">
+              <time datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMM YYYY"}}</time>
+              {{! NOTE: duplicate in index.hbs AND post.hbs }}
+              <span class="pull-right">{{tags prefix="<i class='fa fa-tags'></i> " separator=", "}}</span>
+            </span>
+            <h2 class="post-title"><a href="{{url}}">{{{title}}}</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+          <div class="lead-image">
+            {{content words="0"}}
+          </div>
+          <p>{{excerpt}}&hellip;</p>
+        </section>
+    </article>
+
+    {{/foreach}}
+
+    {{!! After all the posts, we have the previous/next pagination links }}
+    {{pagination}}
+
+</main>

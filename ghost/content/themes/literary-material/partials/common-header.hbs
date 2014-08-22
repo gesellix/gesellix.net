@@ -1,0 +1,17 @@
+<header class="site-head" {{#if @blog.cover}}style="background-image: url({{@blog.cover}})"{{/if}}>
+  <div class="vertical">
+    <div class="site-head-content inner">
+
+      {{#if @blog.logo}}
+      <a class="blog-logo fade-in one" href="{{@blog.url}}">
+        <img src="{{@blog.logo}}" alt="Blog Logo" class="">
+      </a>
+      {{else}}
+      <a class="fade-in one" href="{{@blog.url}}">
+        <span class="blog-title">{{@blog.title}}</span>
+      </a>
+      {{/if}}
+
+    </div>
+  </div>
+</header>
