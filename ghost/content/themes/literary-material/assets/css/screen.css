@@ -123,35 +123,31 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 /* Import the font file with the icons in it */
 @font-face {
-  font-family: 'icons';
-  src:url('../fonts/icons.eot');
-  src:url('../fonts/icons.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/icons.woff') format('woff'),
-  url('../fonts/icons.ttf') format('truetype'),
-  url('../fonts/icons.svg#icons') format('svg');
+  font-family: "icons";
+  src:url("../fonts/icons.eot");
+  src:url("../fonts/icons.eot?#iefix") format("embedded-opentype"),
+  url("../fonts/icons.woff") format("woff"),
+  url("../fonts/icons.ttf") format("truetype"),
+  url("../fonts/icons.svg#icons") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
 /* Apply these base styles to all icons */
-.icon-ghost:before,
-.icon-feed:before,
-.icon-twitter:before,
-.icon-google-plus:before,
-.icon-facebook:before {
-  font-family: 'icons';
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "icons", "Open Sans", sans-serif;
   speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  text-decoration: none;
+  text-decoration: none !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Each icon is created by inserting the corret character into the
+/* Each icon is created by inserting the correct character into the
 content of the :before pseudo element. Like a boss. */
 .icon-ghost:before {
   content: "\e000";
@@ -168,6 +164,19 @@ content of the :before pseudo element. Like a boss. */
 }
 .icon-facebook:before {
   content: "\e004";
+}
+.icon-arrow-left:before {
+  content: "\e005";
+}
+.icon-stats:before {
+  content: "\e006";
+}
+.icon-location:before {
+  content: "\e007";
+  margin-left: -3px; /* Tracking fix */
+}
+.icon-link:before {
+  content: "\e008";
 }
 
 
@@ -209,7 +218,7 @@ h4, h5, h6 {
   line-height: 1;
   margin-top: 0;
   font-family: 'Roboto', sans-serif;
-  font-weight: normal;
+  font-weight: 300;
 }
 
 h1 {
@@ -483,6 +492,9 @@ body {
 
 .site-head-content {
   min-height: 100px;
+  font-weight: 300;
+  margin-top: 6rem;
+  margin-bottom: 6rem;
 }
 
 .site-head.small-header .site-head-content {
@@ -498,40 +510,53 @@ body {
 
 /* Big cover image on the home page */
 .site-head {
-  position: fixed;
+  position: absolute;
   top:0;
   left:0;
+
   z-index: 98;
 
   display: table;
   width: 100%;
-  height: 600px;
+  /*height: 600px;*/
   margin-bottom: 5rem;
   text-align: center;
   color: #eceff1;
+
   background: #607d8b no-repeat center center;
   background-size: cover;
+  background-attachment: fixed;
+
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   border-bottom: 1px solid rgba(0,0,0,0.1);
 
-  -webkit-transition: all 0.5s ease-out;
+  /*-webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
   transition: all 0.5s ease-out;
-  -webkit-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;*/
 }
 
 .site-head.small-header {
-  height: 0;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   padding-top: 25px;
   padding-bottom: 25px;
 }
 
-.site-head.small-header .blog-title {
-  display: none;
+.site-head.small-header .site-head-content {
+  /*height: 0;*/
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-.site-head.small-header .blog-description {
+.site-head.small-header .blog-title,
+.site-head.small-header .blog-description,
+.site-head.small-header .author-title,
+.site-head.small-header .author-bio,
+.site-head.small-header .author-meta {
   display: none;
 }
 
@@ -539,9 +564,9 @@ body {
   color: rgba(255,255,255,0.8);
   text-decoration: none;
 
-  -webkit-transition: all 0.5s ease-out;
+  /*-webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
-  transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;*/
 }
 
 .blog-logo {
@@ -553,10 +578,10 @@ body {
   width: 100px;
   margin: 0 auto;
   display: block;
-  position: absolute;
-  float: left;
+  /*position: absolute;*/
+  /*float: left;*/
   left: 0;
-  top:0;
+  top:-20px;
   margin: 0 auto;
 }
 
@@ -569,9 +594,9 @@ body {
   border-radius: 100px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.5);
 
-  -webkit-transition: all 0.5s ease-out;
+  /*-webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
-  transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;*/
 }
 
 .site-head.small-header .blog-logo,
@@ -595,15 +620,13 @@ body {
 
 .blog-description {
   margin: 0;
+  margin-top: 4rem;
   font-size: 1.8rem;
   line-height: 1.5em;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
   letter-spacing: 0;
   text-shadow: 0 1px 3px rgba(0,0,0,0.1);
-
-  /*display: inline-block;
-  height: 27px;*/
 }
 
 .content {
@@ -624,12 +647,23 @@ body {
 
 /* Navigation */
 
-#navigation {
+.btn-float {
   position: fixed;
+  z-index: 999;
+
+  color: #eceff1;
+  text-decoration: none;
+
+  top: 1rem;
+}
+
+.subscribe-button {
+  right: 2rem;
+}
+
+#navigation {
   left: 2rem;
   top: 1rem;
-
-  z-index: 999;
   color: #eceff1;
 }
 
@@ -678,16 +712,28 @@ body {
   padding: 4rem;
   border-radius: 0.2rem;
   box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+
+  overflow: hidden;
+}
+
+.post img:hover {
+
+  cursor: pointer;
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+  cursor: zoom-in;
 }
 
 .home-template #header-spacer,
-.archive-template #header-spacer {
-  height: 600px;
+.archive-template #header-spacer,
+.author-template #header-spacer {
+  /*height: 600px;*/
 }
 
 .home-template #header-spacer.small-header,
-.archive-template #header-spacer.small-header {
-  height: 250px;
+.archive-template #header-spacer.small-header,
+.author-template #header-spacer.small-header {
+  /*height: 250px;*/
 }
 
 .post-title {
@@ -720,7 +766,7 @@ body {
 
 .post-meta a:hover {
   color: #263238;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 .user-meta {
@@ -767,6 +813,7 @@ body {
 }
 
 .content .full-img {
+  width: 100%;
   width: calc(100% + 8rem);
   max-width: none;
   margin: 0 -4rem;
@@ -794,24 +841,38 @@ body {
   cursor: pointer;
 }
 
+.extra-pagination .pagination {
+  width: 100%;
+}
+
+.home-template .extra-pagination,
+.author-template .extra-pagination,
+.tag-template .extra-pagination {
+  display: none;
+}
+
+.archive-template .extra-pagination {
+  display: block;
+}
+
 /* ==========================================================================
 5. Single Post - When you click on an individual post
 ========================================================================== */
 
 .post-template #header-spacer {
-  height: 200px;
+  /*height: 200px;*/
 }
 
 .post-template #header-spacer.small-header {
-  height: 150px;
+  /*height: 150px;*/
 }
 
 .post-template .site-head {
-  height: 200px;
+  /*height: 200px;*/
 }
 
 .post-template .site-head.small-header {
-  height: 0px;
+  /*height: auto;*/
 }
 
 /* Stop .full-img from creating horizontal scroll - slight hack due to
@@ -949,19 +1010,19 @@ links remain at a fixed width the whole time */
 ========================================================================== */
 
 .tag-template #header-spacer {
-  height: 230px;
+  /*height: 230px;*/
 }
 
 .tag-template #header-spacer.small-header {
-  height: 200px;
+  /*height: 200px;*/
 }
 
 .tag-template .site-head {
-  height: 200px;
+  /*height: 200px;*/
 }
 
 .tag-template .site-head.small-header {
-  height: 0px;
+  /*height: 0px;*/
 }
 
 .tag-template .site-head a {
@@ -969,6 +1030,7 @@ links remain at a fixed width the whole time */
 }
 
 .tag-archive-header {
+  margin-top: 4rem;
   display: none; /* for transition */
   text-align: center;
 }
@@ -990,6 +1052,132 @@ position: relative;
 display: inline-block;
 padding: 2.5rem 0;
 }*/
+
+/* ==========================================================================
+6. Author profile
+========================================================================== */
+
+.tag-head.main-header {
+  height: 40%;
+  min-height: 180px;
+}
+
+.author-head.main-header {
+  height: 40%;
+  min-height: 180px;
+}
+
+.no-cover.author-head.main-header {
+  height: 10%;
+  min-height: 100px;
+  /*background: transparent;*/
+}
+
+.author-profile {
+  text-align: center;
+}
+
+.author-profile h1,
+.author-profile h2,
+.author-profile h3,
+.author-profile h4,
+.author-profile h5,
+.author-profile h6 {
+  color: rgba(255,255,255,0.8);
+  font-weight: 300;
+}
+
+.author-image {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  margin-left: -40px;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  overflow: hidden;
+  /*padding: 6px;*/
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.author-template .author-image {
+  top: 0;
+  position: relative;
+}
+
+.author-image .img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 100%;
+}
+
+.author-template .author-image .img {
+
+}
+
+.author-profile .author-image {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: 120px;
+  height: 120px;
+  /*padding: 3px;*/
+  margin: -110px auto 0 auto;
+  /*box-shadow: none;*/
+}
+
+.author-template .author-image {
+  margin: 4rem auto 0 auto;
+}
+
+.author-title {
+  margin: 1.5rem 0 1rem;
+}
+
+.author-bio {
+  font-size: 1.8rem;
+  line-height: 1.5em;
+  font-weight: 200;
+  /*color: #50585D;*/
+  letter-spacing: 0;
+  text-indent: 0;
+  margin-top: 4rem;
+}
+
+.author-meta {
+  margin: 1.6rem 0;
+}
+/* Location, website, and link */
+.author-profile .author-meta {
+  margin: 2rem 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.7rem;
+}
+.author-meta span {
+  display: inline-block;
+  margin: 0 2rem 1rem 0;
+  word-wrap: break-word;
+}
+.author-meta a {
+  text-decoration: none;
+}
+
+/* Turn off meta for page2+ to make room for extra
+pagination prev/next links */
+.archive-template .author-profile .author-meta {
+  display: none;
+}
+
 
 /* ==========================================================================
 7. Third Party Elements - Embeds from other services
@@ -1033,7 +1221,11 @@ padding: 2.5rem 0;
 .newer-posts {
   position: absolute;
   display: inline-block;
-  padding: 0 15px;
+  /*padding: 0 15px;*/
+
+  width: 30px;
+  height: 30px;
+
   border: #EBF2F6 2px solid;
   text-decoration: none;
   border-radius: 30px;
@@ -1042,15 +1234,19 @@ padding: 2.5rem 0;
 
 .older-posts {
   right: 0;
+  /*float: right;*/
 }
 
 .page-number {
   display: inline-block;
   padding: 2px 0;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .newer-posts {
   left: 0;
+  /*float: left;*/
 }
 
 .older-posts:hover,
@@ -1065,8 +1261,8 @@ padding: 2.5rem 0;
 
 .site-footer {
   position: relative;
-  margin: 8rem 0 0 0;
-  padding: 4rem 0;
+  /*margin: 8rem 0 0 0;*/
+  padding: 2rem 0;
   border-top: #cfd8dc 1px solid;
   font-family: 'Roboto', sans-serif;
   font-size: 1.3rem;
@@ -1092,8 +1288,8 @@ padding: 2.5rem 0;
 .site-footer.search,
 .site-footer.social-links {
   padding: 1rem;
-  padding-bottom: 2rem;
-  margin-bottom: -8rem;
+  /*padding-bottom: 2rem;
+  margin-bottom: -8rem;*/
 }
 
 .poweredby .icon-ghost {
@@ -1187,8 +1383,15 @@ padding: 2.5rem 0;
   top: 40px;
 }
 
+.lead-image {
+  width: 100%;
+  text-align: center;
+}
+
 .lead-image img {
-  width:100%;
+  /*width:100%;*/
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #comments {
@@ -1219,10 +1422,31 @@ padding: 2.5rem 0;
   animation-duration:1s;
 }
 
+.fade-in.fast {
+  opacity:0;  /* make things invisible upon start */
+  -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:0.5s;
+  -moz-animation-duration:0.5s;
+  animation-duration:0.5s;
+}
+
 .fade-in.one {
   -webkit-animation-delay: 0.3s;
   -moz-animation-delay: 0.3s;
   animation-delay: 0.3s;
+}
+
+.fade-in.one.fast {
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  animation-delay: 0s;
 }
 
 .fade-in.two {
@@ -1231,10 +1455,22 @@ padding: 2.5rem 0;
   animation-delay: 0.8s;
 }
 
+.fade-in.two.fast {
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
 .fade-in.three {
   -webkit-animation-delay: 1.2s;
   -moz-animation-delay: 1.2s;
   animation-delay: 1.2s;
+}
+
+.fade-in.three.fast {
+  -webkit-animation-delay: 0.3s;
+  -moz-animation-delay: 0.3s;
+  animation-delay: 0.3s;
 }
 
 
@@ -1354,8 +1590,8 @@ INPUT STYLING
     left: calc(50% - 50px);
   }
 
-  .site-head .blog-logo img {
-
+  .site-head {
+    background-attachment: initial;
   }
 
   .site-head.small-header .blog-logo,
@@ -1408,6 +1644,15 @@ INPUT STYLING
 
 @media only screen and (max-width: 500px) {
 
+  .site-head {
+    /*position: relative;*/
+    background-attachment: initial;
+  }
+
+  .header-spacer {
+    /*display: none;*/
+  }
+
   .site-head .blog-logo {
     position: relative;
     margin:0;
@@ -1427,20 +1672,24 @@ INPUT STYLING
 
   .home-template .site-head,
   .archive-template .site-head {
-    max-height: 260px;
+    /*max-height: 260px;*/
   }
 
   .home-template #header-spacer,
   .archive-template #header-spacer {
-    max-height: 240px;
+    /*display: none;*/
+    /*max-height: 240px;*/
   }
 
-  /*.post-template .site-head {
-  height: 0;
-  }*/
+  .home-template #header-spacer.small-header {
+    /*clear: both;*/
+    /*display: inline-block;*/
+    /*height: 640px;*/
+  }
 
   .post-template #header-spacer {
-    max-height: 180px;
+    /*display: none;*/
+    /*max-height: 180px;*/
   }
 
   .blog-logo img {
@@ -1451,6 +1700,17 @@ INPUT STYLING
     width: auto;
     margin-left: 16px;
     margin-right: 16px;
+  }
+
+  .pagination {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .extra-pagination,
+  .extra-pagination.inner {
+    margin:0;
+    padding:0;
   }
 
   .blog-title {
@@ -1509,7 +1769,9 @@ INPUT STYLING
   .post-footer {
     width: 100%;
     padding: 1.5rem;
+    padding-top: 6rem;
     margin:0;
+    margin-top: 3rem;
     margin-left: -1.5rem;
     display: inline-block;
     text-align: center;
@@ -1547,7 +1809,7 @@ INPUT STYLING
   }
 
   .page-number {
-    display: block;
+    /*display: block;*/
   }
 
   .site-footer {

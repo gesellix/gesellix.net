@@ -1,0 +1,62 @@
+{{! Previous/next page links - only displayed on page 2+ }}
+<div class="extra-pagination inner">
+  {{pagination}}
+</div>
+
+{{! This is the post loop - each post will be output using this markup }}
+{{#foreach posts}}
+<article class="{{post_class}}">
+
+  <header class="post-header">
+    <h2 class="post-title"><a href="{{url}}">{{{title}}}</a></h2>
+    <span class="post-meta">
+      <time class="post-date" datetime="{{date format='YYYY-MM-DD'}}">
+        <i class='fa fa-calendar'></i> {{date format="DD MMM YYYY"}}
+      </time>
+      <span class="pull-right">
+        {{tags prefix="<i class='fa fa-tags'></i> " separator=", "}}
+      </span>
+    </span>
+  </header>
+
+  <br>
+
+  <section class="post-excerpt">
+    <div class="lead-image">
+      {{content words="0"}}
+    </div>
+    <p>{{excerpt words="30"}} <a class="read-more" href="{{url}}"><i class="fa fa-angle-right fa-fw"></i></a></p>
+  </section>
+
+  <!-- <footer class="post-footer">
+    {{! Everything inside the #author tags pulls data from the author }}
+    {{#author}}
+
+    <section class="author">
+      {{#if image}}
+        <figure class="author-image">
+        <A class="img" href="{{url}}" style="background-image: url({{image}})"><span class="hidden">{{name}}'s Picture</span></a>
+        </figure>
+      {{/if}}
+
+      <h4><a href="{{url}}">{{name}}</a></h4>
+
+      {{#if bio}}
+      <p>{{bio}}</p>
+      {{else}}
+      <p>Read <a href="{{url}}">more posts</a> by this author.</p>
+      {{/if}}
+      <div class="author-meta">
+        {{#if location}}<span class="author-location icon-location">{{location}}</span>{{/if}}
+        {{#if website}}<span class="author-link icon-link"><a href="{{website}}">{{website}}</a></span>{{/if}}
+      </div>
+    </section>
+
+    {{/author}}
+  </footer> -->
+
+</article>
+{{/foreach}}
+
+{{! Previous/next page links - displayed on every page }}
+{{pagination}}
