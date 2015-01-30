@@ -23,7 +23,13 @@
 
   <section class="post-excerpt">
     <div class="lead-image">
-      {{content words="0"}}
+      {{#if image}}
+        <p>
+          <img src="{{image}}" alt="{{image}}" class="full-img">
+        </p>
+      {{^}}
+        {{content words="0"}}
+      {{/if}}
     </div>
     <p>{{excerpt words="30"}} <a class="read-more" href="{{url}}"><i class="fa fa-angle-right fa-fw"></i></a></p>
   </section>

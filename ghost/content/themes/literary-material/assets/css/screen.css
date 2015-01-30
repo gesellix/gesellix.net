@@ -1202,6 +1202,7 @@ pagination prev/next links */
 
 /* The main wrapper for our pagination links */
 .pagination {
+  height: 34px;
   position: relative;
   width: 80%;
   max-width: 700px;
@@ -1219,7 +1220,7 @@ pagination prev/next links */
 /* Push the previous/next links out to the left/right */
 .older-posts,
 .newer-posts {
-  position: absolute;
+  /*position: absolute;*/
   display: inline-block;
   /*padding: 0 15px;*/
 
