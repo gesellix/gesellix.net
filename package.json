@@ -1,0 +1,16 @@
+{
+  "name": "gesellix.net",
+  "version": "0.0.1",
+  "description": "Ghost based blog for gesellix.net",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gesellix/gesellix.net.git"
+  },
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "dependencies": {
+    "express": "^4.11.1",
+    "ghost": "^0.5.8"
+  }
+}

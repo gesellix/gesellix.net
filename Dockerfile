@@ -1,34 +1,22 @@
 FROM node:0.10
 
-RUN apt-get update && apt-get install -y build-essential && apt-get clean && rm -rf /tmp/* /var/tmp/*
-
-# get current Ghost release:
-#  curl -L -O https://ghost.org/zip/ghost-latest.zip
-
-RUN mkdir -p /opt/ghost
-
-ADD ./ghost/package.json /opt/ghost/package.json
-RUN cd /opt/ghost && npm install --production
-
-ADD ./ghost /opt/ghost
-
-WORKDIR /opt/ghost
-
-# using the volumes with a dedicated data container:
-#  docker run -d -v /opt/ghost/content/data -v /opt/ghost/content/images --name ghost-data ubuntu:14.04 true
-#  docker run -d --volumes-from ghost-data -v `pwd`/config.js:/opt/ghost/config.js -p 2368:2368 gesellix/gesellix.net
-
-# create a data container backup:
-#  docker run --volumes-from ghost-data -v `pwd`:/backup ubuntu:14.04 tar cfvz /backup/ghost-data.tgz /opt/ghost/content/data
-#  docker run --volumes-from ghost-data -v `pwd`:/backup ubuntu:14.04 tar cfvz /backup/ghost-images.tgz /opt/ghost/content/images
-
-# restore a container backup:
-#  docker run --volumes-from ghost-data -v `pwd`:/backup ubuntu:14.04 tar xfvz /backup/ghost-data.tgz
-#  docker run --volumes-from ghost-data -v `pwd`:/backup ubuntu:14.04 tar xfvz /backup/ghost-images.tgz
-
-VOLUME ["/opt/ghost/content/data"]
-VOLUME ["/opt/ghost/content/images"]
-
 EXPOSE 2368
 
+ENV NODE_ENV production
 CMD ["npm", "start", "--production"]
+
+WORKDIR /ghost/
+
+VOLUME ["/ghost/content/data"]
+VOLUME ["/ghost/content/images"]
+
+ADD ./package.json /ghost/package.json
+RUN useradd ghost --home /ghost && \
+    cd /ghost/ && \
+    npm install --production
+
+ADD ./config.js /ghost/config.js
+ADD ./index.js /ghost/index.js
+ADD ./content/ /ghost/content/
+
+RUN chown -R ghost:ghost /ghost
