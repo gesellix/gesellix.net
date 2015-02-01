@@ -1,5 +1,7 @@
 # gesellix.net
 
+* :whale: [Docker](https://www.docker.com/) image available at the [official registry](https://registry.hub.docker.com/u/gesellix/gesellix.net/) via `docker pull gesellix/gesellix.net`.
+
 * instructions for using the Ghost npm module: [GitHub wiki](https://github.com/TryGhost/Ghost/wiki/Using-Ghost-as-an-npm-module)
 
 * using the volumes with a dedicated data container:
