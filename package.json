@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "express": "^4.11.1",
-    "ghost": "^0.5.8"
+    "ghost": "^0.5.9"
   }
 }
