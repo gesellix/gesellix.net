@@ -10,7 +10,7 @@
     "start": "node ./index.js"
   },
   "dependencies": {
-    "express": "^4.11.1",
-    "ghost": "^0.5.10"
+    "express": "^4.12.4",
+    "ghost": "^0.6.4"
   }
 }
