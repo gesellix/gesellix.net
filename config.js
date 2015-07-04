@@ -3,7 +3,7 @@
 var path = require('path');
 
 var config = {production: {}};
-config.production.url = 'http://gesellix.net';
+config.production.url = 'https://gesellix.net';
 
 config.production.server = {
     // Host to be passed to node's `net.Server#listen()`
